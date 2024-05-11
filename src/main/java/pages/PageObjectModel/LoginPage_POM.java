@@ -1,9 +1,10 @@
 package pages.PageObjectModel;
 
+import Utils.PropertyReader;
 import com.testing.base.CommonToALLPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
+// page object model basically says keep the page locators and actions in the same class
 public class LoginPage_POM extends CommonToALLPage {
     // Page locators
     By username= By.xpath("//input[@id='i0116']");
@@ -26,27 +27,6 @@ public class LoginPage_POM extends CommonToALLPage {
 
 
     // Page Actions
-    public void LoginWithValidCred(){
-        visibilityOfElement(username);
-        enterInput(username,"am2@westcon.com");
-        clickElement(signIN_Button);
-        visibilityOfElement(password);
-        enterInput(password,"myPassword12345");
-        visibilityOfElement(signIN_Button);
-        clickElement(signIN_Button);
-        visibilityOfElement(account_InputField);
-        enterInput(account_InputField,"0001020777");
-        visibilityOfElement(search_Button);
-        clickElement(search_Button);
-        visibilityOfElement(selectSalesOrg);
-        clickElement(selectSalesOrg);
-
-        elementTobeClickable(startSession);
-        clickElement(startSession);
-        visibilityOfElement(popUpButton);
-        clickElement(popUpButton);
-
-    }
 
     public String LoginWithInvalidCred1(){
         visibilityOfElement(username);
@@ -68,6 +48,33 @@ public class LoginPage_POM extends CommonToALLPage {
         clickElement(signIN_Button);
         visibilityOfElement(password_Invalid_Error);
         return getElement(password_Invalid_Error).getText();
+
+    }
+
+    public void LoginWithValidCred(){
+        visibilityOfElement(username);
+        enterInput(username, PropertyReader.readKey("username"));
+        clickElement(signIN_Button);
+        visibilityOfElement(password);
+        enterInput(password,PropertyReader.readKey("password"));
+        visibilityOfElement(signIN_Button);
+        clickElement(signIN_Button);
+        visibilityOfElement(account_InputField);
+        enterInput(account_InputField,"0001005286");
+        visibilityOfElement(search_Button);
+        clickElement(search_Button);
+        /*visibilityOfElement(selectSalesOrg);
+        clickElement(selectSalesOrg);*/
+
+        elementTobeClickable(startSession);
+        clickElement(startSession);
+        visibilityOfElement(popUpButton);
+        clickElement(popUpButton);
+
+    }
+
+    public Dashboard_POM afterLoginToPC(){
+        return new Dashboard_POM();
 
     }
 }
